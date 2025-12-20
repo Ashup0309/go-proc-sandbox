@@ -177,9 +177,10 @@ func (s *WindowsSandbox) Run(ctx context.Context, command string, args ...string
 		cmd.Stderr = s.config.Stderr
 	}
 
-	// Ensure CREATE_SUSPENDED and CREATE_BREAKAWAY_FROM_JOB flags
+	// Note: We don't use CREATE_SUSPENDED as we would need to resume the thread
+	// Instead, we assign the process to the job immediately after start
 	cmd.SysProcAttr = &syscall.SysProcAttr{
-		CreationFlags: syscall.CREATE_SUSPENDED | 0x01000000, // CREATE_BREAKAWAY_FROM_JOB
+		CreationFlags: 0x01000000, // CREATE_BREAKAWAY_FROM_JOB
 	}
 
 	// Start the process
@@ -189,20 +190,17 @@ func (s *WindowsSandbox) Run(ctx context.Context, command string, args ...string
 		return result, err
 	}
 
-	// Assign process to job object
+	// Assign process to job object using the process handle
+	processHandle := uintptr(cmd.Process.(*os.Process).Handle)
 	ret, _, err := procAssignProcessToJobObject.Call(
 		uintptr(s.jobHandle),
-		uintptr(cmd.Process.Pid),
+		processHandle,
 	)
 	if ret == 0 {
 		cmd.Process.Kill()
 		result.Error = fmt.Errorf("failed to assign process to job: %v", err)
 		return result, result.Error
 	}
-
-	// Resume the process
-	// Note: In a real implementation, we would need to resume the thread
-	// For simplicity, we'll start without CREATE_SUSPENDED in practice
 
 	// Wait for completion
 	err = cmd.Wait()

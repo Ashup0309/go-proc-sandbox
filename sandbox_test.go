@@ -3,6 +3,7 @@ package sandbox
 import (
 	"bytes"
 	"context"
+	"os"
 	"runtime"
 	"testing"
 	"time"
@@ -125,10 +126,12 @@ func TestIORedirection(t *testing.T) {
 }
 
 func TestWorkingDirectory(t *testing.T) {
+	tmpDir := os.TempDir()
+	
 	config := &Config{
 		Timeout:     5 * time.Second,
 		MemoryLimit: 100 * 1024 * 1024,
-		WorkingDir:  "/tmp",
+		WorkingDir:  tmpDir,
 	}
 
 	sb, err := New(config)

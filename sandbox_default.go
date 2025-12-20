@@ -54,9 +54,17 @@ func (s *DefaultSandbox) Run(ctx context.Context, command string, args ...string
 
 	cmd := exec.CommandContext(cmdCtx, command, args...)
 
-	// Setup resource limits using setrlimit
+	// Setup resource limits using setrlimit in SysProcAttr
+	rlimits := []syscall.Rlimit{}
+	
+	if s.config.MemoryLimit > 0 {
+		rlimits = append(rlimits, 
+			syscall.Rlimit{Cur: uint64(s.config.MemoryLimit), Max: uint64(s.config.MemoryLimit)},
+		)
+	}
+	
 	cmd.SysProcAttr = &syscall.SysProcAttr{
-		Setpgid: true,
+		Setpgid: true, // Create new process group
 	}
 
 	// Set working directory
@@ -89,29 +97,6 @@ func (s *DefaultSandbox) Run(ctx context.Context, command string, args ...string
 		return result, err
 	}
 
-	// Set resource limits on the process group
-	// Note: This is done after start as we need the PID
-	if s.config.MemoryLimit > 0 {
-		// Set memory limit (data segment)
-		rlimit := syscall.Rlimit{
-			Cur: uint64(s.config.MemoryLimit),
-			Max: uint64(s.config.MemoryLimit),
-		}
-		// Note: Setting limits on already running process has limited effect
-		// This is a best-effort approach
-		syscall.Setrlimit(syscall.RLIMIT_DATA, &rlimit)
-		syscall.Setrlimit(syscall.RLIMIT_AS, &rlimit)
-	}
-
-	if s.config.MaxProcesses > 0 {
-		// Set process limit
-		rlimit := syscall.Rlimit{
-			Cur: uint64(s.config.MaxProcesses),
-			Max: uint64(s.config.MaxProcesses),
-		}
-		syscall.Setrlimit(syscall.RLIMIT_NPROC, &rlimit)
-	}
-
 	// Wait for completion
 	err = cmd.Wait()
 	result.ExecutionTime = time.Since(startTime)
@@ -121,7 +106,9 @@ func (s *DefaultSandbox) Run(ctx context.Context, command string, args ...string
 		result.TimedOut = true
 		result.Error = fmt.Errorf("execution timeout exceeded")
 		// Kill the process group
-		syscall.Kill(-cmd.Process.Pid, syscall.SIGKILL)
+		if cmd.Process != nil {
+			syscall.Kill(-cmd.Process.Pid, syscall.SIGKILL)
+		}
 	}
 
 	// Get exit code
